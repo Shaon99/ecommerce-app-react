@@ -1,5 +1,6 @@
 import React from 'react';
 import { calculateSubtotal, calculateTotal } from '../Utility/cartUtils';
+import { Link } from 'react-router-dom';
 
 const CartModal = ({ cartItems, closeModal, handleRemoveFromCart, handleQuantityChange }) => {
     return (
@@ -65,12 +66,12 @@ const CartModal = ({ cartItems, closeModal, handleRemoveFromCart, handleQuantity
                             <h3 className='text-xl font-semibold'>Total:</h3>
                             <p className='text-coral-red text-xl font-semibold mx-10'>{calculateTotal(cartItems)}</p>
                         </div>
-                        <button
+                        <Link to='/checkout' onClick={closeModal}
                             type='button'
                             className='w-full inline-block bg-coral-red hover:bg-orange-400 text-white py-2 px-4 mt-4 rounded-md transition duration-300'
                         >
                             Proceed to checkout
-                        </button>
+                        </Link>
                     </div>
                 )}
             </div>

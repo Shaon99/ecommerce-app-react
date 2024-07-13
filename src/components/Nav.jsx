@@ -2,6 +2,7 @@ import { useState } from "react";
 import { hamburger, close, cart } from "../assets/icons";
 import { headerLogo } from "../assets/images";
 import { navLinks } from "../constants";
+import { Link } from 'react-router-dom';
 
 const Nav = ({ cartCount, handleCartClick }) => {
   const [toggle, setToggle] = useState(false);
@@ -9,7 +10,7 @@ const Nav = ({ cartCount, handleCartClick }) => {
   return (
     <header className='padding-x py-8 bg-white sticky top-0 z-50 w-full'>
       <nav className='flex justify-between items-center max-container'>
-        <a href='/'>
+        <Link to='/'>
           <img
             src={headerLogo}
             alt='logo'
@@ -17,16 +18,16 @@ const Nav = ({ cartCount, handleCartClick }) => {
             height={29}
             className='m-0 w-[129px] h-[29px]'
           />
-        </a>
+        </Link>
         <ul className='flex-1 flex justify-center items-center gap-16 max-lg:hidden'>
           {navLinks.map((item) => (
             <li key={item.label}>
-              <a
-                href={item.href}
+              <Link
+                to={item.to}
                 className='font-montserrat uppercase leading-normal text-lg text-slate-gray'
               >
                 {item.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>

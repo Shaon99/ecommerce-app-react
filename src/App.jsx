@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Nav, CartModal } from "./components";
+import { Nav, CartModal, Home, Checkout, OrderConfirmation, NotFound, Products } from "./components";
+import { Routes, Route } from "react-router-dom";
+import ProtectedRoute from "./ProtectedRoute";
+import { ToastContainer } from 'react-toastify';
 import {
-  CustomerReviews,
-  Footer,
-  Hero,
-  PopularProducts,
-  Services,
-  SpecialOffer,
-  Subscribe,
-  SuperQuality,
+  Footer
 } from "./sections";
 import {
   handleAddToCart,
@@ -46,27 +42,19 @@ const App = () => {
   return (
     <main className='relative'>
       <Nav cartCount={cartCount} handleCartClick={handleCartClick} />
-      <section className='xl:padding-l wide:padding-r padding-b'>
-        <Hero />
-      </section>
-      <section className='padding'>
-        <PopularProducts handleAddToCart={handleCartAdd} />
-      </section>
-      <section className='padding'>
-        <SuperQuality />
-      </section>
-      <section className='padding-x py-10'>
-        <Services />
-      </section>
-      <section className='padding'>
-        <SpecialOffer />
-      </section>
-      <section className='bg-pale-blue padding'>
-        <CustomerReviews />
-      </section>
-      <section className='padding-x sm:py-32 py-16 w-full'>
-        <Subscribe />
-      </section>
+      <Routes>
+        <Route path="/" element={<Home handleCartAdd={handleCartAdd} />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/checkout" element={
+          <ProtectedRoute cartItems={cartItems}>
+            <Checkout cartItems={cartItems} setCartItems={setCartItems} setCartCount={setCartCount} />
+          </ProtectedRoute>
+        } />
+        <Route path="/order-confirmation" element={
+          <OrderConfirmation />
+        } />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
       <section className=' bg-black padding-x padding-t pb-8'>
         <Footer />
       </section>
@@ -78,6 +66,7 @@ const App = () => {
           handleQuantityChange={handleCartQuantityChange}
         />
       )}
+      <ToastContainer />
     </main>
   );
 };

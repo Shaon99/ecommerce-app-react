@@ -1,3 +1,6 @@
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export const updateCart = (cartItems, setCartItems, setCartCount) => {
   setCartItems(cartItems);
   setCartCount(cartItems.length);
@@ -11,15 +14,35 @@ export const handleAddToCart = (
   setCartCount
 ) => {
   if (cartItems.some((item) => item.name === product.name)) {
-    alert("Product already added");
+    toast.warning("Product already added to cart", {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme:'dark'
+    });
     return;
   }
+  
   const productWithDefaultQuantity = { ...product, quantity: 1 };
   updateCart(
     [...cartItems, productWithDefaultQuantity],
     setCartItems,
     setCartCount
   );
+  toast.success("Product successfully added to cart", {
+    position: "bottom-right",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme:'dark'
+  });
 };
 
 export const handleRemoveFromCart = (
@@ -32,6 +55,16 @@ export const handleRemoveFromCart = (
     (item) => item.name !== product.name
   );
   updateCart(updatedCartItems, setCartItems, setCartCount);
+  toast.success("Product successfully remove from cart", {
+    position: "bottom-right",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme:'dark'
+  });
 };
 
 export const handleQuantityChange = (
